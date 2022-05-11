@@ -102,4 +102,4 @@ env: env
 
 ### Credits
 
-All code written by [Deborah](https://github.com/speak2debby) Simon peter (https://github.com/Chrislove1)
+All code written by [Deborah Ajayi](https://github.com/speak2debby) Simon peter (https://github.com/Chrislove1)
