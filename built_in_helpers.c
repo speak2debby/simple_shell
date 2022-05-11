@@ -1,4 +1,4 @@
-#include "holberton.h"
+#include "main.h"
 
 /**
 * countArgs - count the number of arguments
