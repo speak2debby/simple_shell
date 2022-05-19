@@ -1,0 +1,148 @@
+.\" arsine man page
+.\"
+.\"
+.TH ARSINE 1 "09 March 1847" "0.1" "arsine"
+
+
+
+.SH NAME
+
+.B arsine (hsh)
+- command interpreter (shell)
+
+
+
+.SH SYNOPSIS
+
+.B	./hsh
+
+
+
+.SH COPYRIGHT
+
+arsine is Public Domain, no copyright protection
+
+
+
+.SH DESCRIPTION
+
+arsine replicates a command line interpreter (a shell), which is a user \
+interface program for access to an operating system's services.  This shell \
+is designed to interact with a linux distribution or unix like system that \
+uses linux system calls and other commands found in the linux PATH, for \
+example, the
+.B $PATH:
+.P
+.RS
+.B /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
+.P
+.RE
+arsine has a set of custom built-in commands, and also integrates with other \
+commands located in the system's PATH.  The output is designed to exactly or \
+as close as possible replicate the shell 'sh' or 'dash'
+.B $ man dash
+.  arsine \
+takes commands from files, shell scripts or user input in either an \
+interactive or non-interactive mode (explained in INVOCATION section).
+
+
+
+
+.SH INVOCATION
+
+to initialize arsine, you must compile all the included files using the GNU \
+compiler collection: gcc.  Then run the output file, with a command such as \
+this: $ ./a.out.  arsine has been written to pass all of these warning checks \
+and was designed to be compiled with the following command:
+.P
+.RS
+.B $ gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
+.P
+.RE
+if arsine is exectured, it will initialize in what is considered 'interactive \
+mode.'  In this scenario, the user is prompted for a command and then the \
+command is executed after the newline or 'enter' is input.  arsine can also \
+function in non-interactive mode by using shell scripts, such as a '|' before
+the arsine executable file ('hsh').  This is an example:
+.P
+.RS
+.B $ echo 'ls' | ./hsh
+.P
+.RE
+Commands may also be input into arsine through a file containing commands:
+.P
+.RS
+.B $ cat aFile | ./hsh
+.P
+.RE
+
+
+
+.SH OPTIONS
+
+arsine does not take any options but does utilize the variable extern char \
+**environ.  This is currently part of the future goals of arsine
+
+
+.SS BUILT-IN COMMANDS
+
+.RS
+This secion has information on the included builtin commands with arsine
+
+.Bl -tag -width "PAGEIN" -compact -offset indent
+
+.It
+.B env
+- writes environment to stdout
+
+.IT
+.B setenv
+- sets or changes an environmental variable. example: 'setenv USER=bobby'
+
+.IT
+.B unsetenv
+- removes environmental variable. example: 'unsetenv USER'
+
+.IT
+.B history
+- writes history to stdout
+
+
+.IT
+.B exit
+- exits arsine
+
+.IT
+.B cd
+- changes working directory
+
+.IT
+.B help
+- used with another command prints help message.  example: 'help env'
+
+.IT
+.B alias
+- creates an alias.  example 'alias ll='ls -la''
+
+.IT
+.B unalias
+- removes an alias.  example 'unalias ll'
+.RE
+
+
+.SH "SEE ALSO"
+
+.BR sh (1),
+.BR bash (1),
+
+
+
+.SH BUGS
+
+none known.  arsine does not currently replicate these tasks:
+
+.SH AUTHOR
+
+Bobby Yang <122@holberton.com>
+
+David John Coleman II <lcsw@davidjohncoleman.com>
