@@ -1,69 +1,104 @@
-# <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Arsine-underside-3D-vdW.png" width="64" height="64" /> arsine
 
-## Description
 
-This repo has our custom shell project, which attempts to replicate some of the
-processes of the 'sh' shell or 'bash' shell.  For more on the processes of
-arsine, please reference our blog post here: https://medium.com/@djohncoleman/arsine-a-custom-shell-command-line-interpreter-fa5561169cbc
+### Description
 
-### C language standard functions and system calls utilized
+it is a simple UNIX command interpreter that replicates functionalities of the simple shell (sh). Additional functions are also included. This program was written entirely in C as a milestone project for Holberton School.
 
-`access`, `chdir`, `close`, `closedir`, `execve`, `exit`, `fork`,
-`free`, `fstat`, `getcwd`, `getline`, `kill`, `lstat`, `malloc`,
-`open`, `opendir`, `perror`, `read`, `readdir`, `signal`, `stat`,
-`strtok`, `wait`, `waitpid`, `wait3`, `wait4`, `write`, `_exit`
+### Installation
 
-## Brief Synopsis
+Clone this repository into your working directory. For best results, files should be compiled with GCC and the following flags: -Wall -Wextra -Werror -pedantic -Wno-format.
 
-All files in this repository are designed to compile with GNU compiler
-collection v. '`gcc 4.8.4`' in the linux environment from '`Ubuntu 14.04.5
-LTS`'.  When compiled, the executable file replicates a 'shell' or command line
-interpreter, which is a user interface used for access to an operating system's
-services.  This shell has a set of custom built-in commands, and also integrates
-with other commands located in the system's PATH.  Output and functionality from
-commands is designed to replicate output from the shell `sh` (dash) and some
-bash commands.  For more on the detailed functionality of our shell, please read
-our blog posting here:
+### Usage
 
-## Usage
+After compilation, the resulting program can run stand-alone, either in interactive or non-interactive mode.
 
-### compile
+#### Interactive Mode
 
-```
-$ gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
+In interactive mode, simply run the program and wait for the prompt to appear. From there, you can type commands freely, exiting with either the "exit" command or ctrl-D.
+
+#### Non-Interactive Mode
+
+In non-interactive mode, echo your desired command and pipe it into the program like this:
+
+```sh
+echo "ls" | ./shell
 ```
 
-**Compile with Make**: `make all`
+In non-interactive mode, the program will exit after finishing your desired command(s).
 
-### executing the program
+#### Included Built-Ins
 
-**interactive mode**: `$ ./hsh`
+Our shell has support for the following built-in commands:
 
-**non-interactive mode**: `$ echo "ls -la" | ./hsh`
+| Command             | Definition                                                                                |
+| ------------------- | ----------------------------------------------------------------------------------------- |
+| exit [n]            | Exit the shell, with an optional exit status, n.                                          |
+| env                 | Print the environment.                                                                    |
+| setenv [var][value] | Set an environment variable and value. If the variable exists, the value will be updated. |
+| unsetenv [var]      | Remove an environment variable.                                                           |
+| cd [dir]            | Change the directory.                                                                     |
+| help [built-in]     | Read documentation for a built-in.                                                        |
 
-### usage of arsine in interactive mode
+The following built-in commands may be supported in future versions:
 
-arsine functions just as any other shell.  Here is an example usage of the ls
-command with flags.  This command lists directory contents.
+| Command | Definition                     |
+| ------- | ------------------------------ |
+| alias   | Set an Alias.                  |
+| history | View the history of the shell. |
 
+#### Outside Programs
+
+Our shell can run outside programs by typing their absolute paths (/bin/ls) or the executable name (ls), IF their directory is included in the PATH.
+
+### Examples
+
+```sh
+$ ls -l
+total 8
+drwxrwxr-x 1 vagrant vagrant Apr 2 13:23 directory_1
+drwxrwxr-x 2 vagrant vagrant Apr 2 20:30 directory_2
 ```
-$ ls -la
+
+```sh
+$ /bin/pwd
+/home/vagrant/shell
 ```
 
-## Testing
+```sh
+$ hello world
+./hsh: 1: hello: not found
+```
 
-To run tests on the custom shell follow the instructions in the custom shell
-checker in this repository: https://github.com/glyif/shellfish
+```sh
+$ help env
+env: env
+	Print the environment.
+```
 
-## File List
+### Included Files
 
-See file `./FILE_LIST.md`
+- main.c - functions for calling the shell and initializing the shell struct
+- shell.c - functions for running the basic shell logic
+- shell_helpers.c - functions for helping the shell run
+- split_string.c - functions for splitting string from the user
+- string_helpers1.c - functions for manipulating strings
+- string_helpers2.c - functions for manipulating strings
+- built_ins.c - functions for built-ins
+- built_in_helpers.c - functions for helping the built-in functions
+- help.c - functions for the help built-in
+- help2.c - functions for the help built-in
+- cd.c - functions for the cd built-in
+- cd2.c - functions for the cd built-in
+- \_getenv.c - functions for getting elements from the environment
+- env.c - functions for the env, setenv, and unsetenv built-ins
+- llfuncs1.c - linked list functions
+- llfuncs2.c - linked list functions
+- expansions.c - functions for dealing with the $? and $\$ expansions
+- check_path.c - functions for checking the path of an executable
+- error_handler.c - functions for dealing with errors
+- free.c - functions for freeing allocated memory
+- holberton.h - header file
 
-## Authors
+### Credits
 
-Bobby Yang - https://github.com/bobstermyang/  
-David John Coleman II - http://www.davidjohncoleman.com/
-
-## License
-
-MIT License
+All code written by [Deborah Ajayi](https://github.com/speak2debby) and [Simon peter](https://github.com/Chrislove1).

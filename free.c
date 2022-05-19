@@ -1,94 +1,60 @@
-#include "header.h"
+#include "main.h"
 
 /**
- * freeall - function to free all allocated memory
- * @arginv: args inventory
- *
- * Return: 0 on success, 1 on failure
+ * freeMembers - frees build config members
+ * @build: input build
  */
-int freeall(arg_inventory_t *arginv)
+void freeMembers(config *build)
 {
-	int exit_status;
-
-	if (arginv)
-	{
-		save_alias(arginv);
-		file_history(arginv);
-		free_history(arginv->history);
-		free(arginv->history_file);
-		free_environ(arginv->envlist);
-		free_alias(arginv->alias);
-		free(arginv->alias_file);
-		if (arginv->input_commands)
-			free(arginv->input_commands);
-		exit_status = arginv->exit_status;
-		free(arginv);
-	}
-
-	return (exit_status);
+	if (build->env)
+		freeList(build->env);
+	if (build->args)
+		freeArgs(build->args);
+	if (build->buffer)
+		free(build->buffer);
 }
 
 /**
- * free_alias - function to free all allocated memory
- * @head: head of alias
- *
- * Return: 0 on success, 1 on failure
+ * freeArgsAndBuffer - frees args and buffer
+ * @build: input build
  */
-int free_alias(alias_t *head)
+void freeArgsAndBuffer(config *build)
 {
-	alias_t *temp = head;
-
-	while (head)
-	{
-		temp = temp->next;
-		free(head->alias);
-		free(head->command);
-		free(head);
-		head = temp;
-	}
-
-	return (EXT_SUCCESS);
+	freeArgs(build->args);
+	free(build->buffer);
 }
 
 /**
- * free_environ - function to free all allocated memory
- * @head: head of custom _environ
- *
- * Return: 0 on success, 1 on failure
+ * freeList - frees a linked list
+ * @head: double pointer to head of list
  */
-int free_environ(env_t *head)
+void freeList(linked_l *head)
 {
-	env_t *temp = head;
+	linked_l *current;
+	linked_l *tmp;
 
-	while (head)
+	if (!head)
+		return;
+	current = head;
+	while (current)
 	{
-		temp = temp->next;
-		free(head->var);
-		free(head->val);
-		free(head);
-		head = temp;
+		tmp = current;
+		current = tmp->next;
+		free(tmp->string);
+		free(tmp);
 	}
-
-	return (EXT_SUCCESS);
+	head = NULL;
 }
 
 /**
- * free_history - function to free all allocated memory
- * @head: history linked list
- *
- * Return: 0 on success, 1 on failure
+ * freeArgs - helper func that frees double pointer arg
+ * @args: array of char pointers
  */
-int free_history(history_t *head)
+void freeArgs(char **args)
 {
-	history_t *temp = head;
+	register uint i = 0;
 
-	while (head)
-	{
-		temp = temp->next;
-		free(head->command);
-		free(head);
-		head = temp;
-	}
-
-	return (EXT_SUCCESS);
+	while (args[i])
+		free(args[i++]);
+	free(args);
 }
