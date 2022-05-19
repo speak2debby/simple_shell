@@ -1,0 +1,40 @@
+.TH man 1 "20 November 2017" "1.0" "Olaf The Shell man page"
+.SH NAME
+.B Olaf
+- A basic UNIX command line interpreter.
+.SH SYNOPSIS
+Olaf can interpret and execute command line arguments read from the standard input.
+.SH DESCRIPTION
+The Olaf shell is a program that reads line by line from a file or the terminal line. It then interprets the lines and executes it if the line is a valid command. 
+
+.SH USAGE
+All the files are to be compiled on an Ubuntu 14.04 LTS machine with "gcc -Wall -Werror -Wextra -pedantic *.c -o Olaf".
+
+Once compiled, to start the program, run:
+.br
+$ ./Olaf
+
+To exit the program, run:
+.br
+Olaf $ exit
+
+.SH BUILT-INS
+The following built-ins are supported by the Olaf shell:
+
+.B env - 
+Print the current environment.
+
+.B setenv VARIABLE VALUE - 
+Initialize a new environment variable, or modify an existing one. 
+
+.B unsetenv VARIABLE - 
+Remove an environment variable.
+
+.SH RETURN VALUE
+Olaf shell will exit with status 0 unless status is specified.
+.SH SEE ALSO
+.I sh(1)
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Steven Garcia, Yunju Chen
